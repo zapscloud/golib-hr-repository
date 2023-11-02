@@ -385,7 +385,7 @@ func (p *StaffMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 	// 	},
 	// }
 	// Add it to Aggregate Stage
-	stages = append(stages, lookupStage)
+	//stages = append(stages, lookupStage)
 
 	// Lookup Stage for Token ========================================
 	lookupStage = bson.M{
