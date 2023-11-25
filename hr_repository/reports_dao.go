@@ -10,6 +10,7 @@ import (
 type ReportsDao interface {
 	InitializeDao(client utils.Map, businessId string, staffId string)
 	GetAttendanceSummary(filter string, aggr string, sort string, skip int64, limit int64) (utils.Map, error)
+	GetLeavePermissionSummary(filter string, aggr string, sort string, skip int64, limit int64) (utils.Map, error)
 }
 
 func NewReportsDao(client utils.Map, businessId string, staffId string) ReportsDao {
