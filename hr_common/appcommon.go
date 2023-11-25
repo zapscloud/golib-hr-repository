@@ -65,6 +65,7 @@ const (
 	FLD_CLIENT_INFO        = "client_info"
 	FLD_LEAVE_INFO         = "leave_info"
 	FLD_OVERTIME_INFO      = "overtime_info"
+	FLD_LEAVETYPE_INFO     = "leavetype_info"
 
 	FLD_FILTERED_COUNT = "filtered_count"
 	FLD_GROUP_DOCS     = "docs"
