@@ -55,17 +55,18 @@ const (
 
 // Dynamic Fields
 const (
-	FLD_BUSINESS_USER_INFO = "business_user_info"
-	FLD_APP_USER_INFO      = "app_user_info"
-	FLD_STAFF_INFO         = "staff_info"
-	FLD_ROLE_INFO          = "role_info"
-	FLD_SHIFT_INFO         = "shift_info"
-	FLD_WORKLOCATION_INFO  = "worklocation_info"
-	FLD_PROJECT_INFO       = "project_info"
-	FLD_CLIENT_INFO        = "client_info"
-	FLD_LEAVE_INFO         = "leave_info"
-	FLD_OVERTIME_INFO      = "overtime_info"
-	FLD_LEAVETYPE_INFO     = "leavetype_info"
+	FLD_BUSINESS_USER_INFO   = "business_user_info"
+	FLD_APP_USER_INFO        = "app_user_info"
+	FLD_STAFF_INFO           = "staff_info"
+	FLD_ROLE_INFO            = "role_info"
+	FLD_SHIFT_INFO           = "shift_info"
+	FLD_WORKLOCATION_INFO    = "worklocation_info"
+	FLD_PROJECT_INFO         = "project_info"
+	FLD_CLIENT_INFO          = "client_info"
+	FLD_LEAVE_INFO           = "leave_info"
+	FLD_OVERTIME_INFO        = "overtime_info"
+	FLD_LEAVETYPE_INFO       = "leavetype_info"
+	FLD_REPORTING_STAFF_INFO = "reporting_staff_info"
 
 	FLD_FILTERED_COUNT = "filtered_count"
 	FLD_GROUP_DOCS     = "docs"
@@ -80,6 +81,7 @@ const (
 	FLD_STAFF_ID            = "staff_id"
 	FLD_STAFF_DATA          = "staff_data"
 	FLD_STAFF_LAST_CLOCK_IN = "last_clock_in_attendance_id"
+	FLD_REPORTING_STAFF_ID  = "reporting_staff_id"
 
 	// StaffType table fields
 	FLD_STAFFTYPE_ID          = "staff_type_id"
