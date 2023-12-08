@@ -174,23 +174,39 @@ func (p *StaffMongoDBDao) Get(account_id string) (utils.Map, error) {
 	log.Println("accountMongoDao::Get:: Begin ", account_id)
 
 	collection, ctx, err := mongo_utils.GetMongoDbCollection(p.client, hr_common.DbHrStaffs)
-	log.Println("Find:: Got Collection ")
 
-	filter := bson.D{{Key: hr_common.FLD_STAFF_ID, Value: account_id}, {}}
-
-	filter = append(filter,
-		bson.E{Key: hr_common.FLD_BUSINESS_ID, Value: p.businessId},
-		bson.E{Key: db_common.FLD_IS_DELETED, Value: false})
-
-	log.Println("Get:: Got filter ", filter)
-
-	singleResult := collection.FindOne(ctx, filter)
-	if singleResult.Err() != nil {
-		log.Println("Get:: Record not found ", singleResult.Err())
-		return result, singleResult.Err()
-	}
-	singleResult.Decode(&result)
 	if err != nil {
+		return nil, err
+	}
+	log.Println("Find:: Got Collection ", collection)
+
+	stages := []bson.M{}
+
+	filter := bson.D{{Key: hr_common.FLD_STAFF_ID, Value: account_id},
+		{Key: hr_common.FLD_BUSINESS_ID, Value: p.businessId}}
+
+	log.Println("GetDetails:: Got filter ", filter)
+
+	matchStage := bson.M{hr_common.MONGODB_MATCH: filter}
+	stages = append(stages, matchStage)
+
+	// Append Lookups
+	stages = p.appendListLookups(stages)
+	// Aggregate the stages
+	singleResult, err := collection.Aggregate(ctx, stages)
+	if err != nil {
+		log.Println("Get:: Error in aggregation: ", err)
+		return result, err
+	}
+
+	if !singleResult.Next(ctx) {
+		// No matching document found
+		log.Println("GetDetails:: Record not found")
+		err := &utils.AppError{ErrorCode: "S30102", ErrorMsg: "Record Not Found", ErrorDetail: "Given UserID is not found"}
+		return result, err
+	}
+
+	if err := singleResult.Decode(&result); err != nil {
 		log.Println("Error in decode", err)
 		return result, err
 	}
