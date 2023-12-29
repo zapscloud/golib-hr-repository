@@ -477,8 +477,28 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 	// // Add it to Aggregate Stage Shift
 	// stages = append(stages, lookupStage)
 
-	// Lookup Stage for User ==========================================
+	// Lookup Stage for Clients ========================================
 	lookupStage := bson.M{
+		hr_common.MONGODB_LOOKUP: bson.M{
+			hr_common.MONGODB_STR_FROM:         hr_common.DbHrClients,
+			hr_common.MONGODB_STR_LOCALFIELD:   hr_common.FLD_CLOCK_IN + "." + hr_common.FLD_CLIENT_ID,
+			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_CLIENT_ID,
+			hr_common.MONGODB_STR_AS:           hr_common.FLD_CLIENT_INFO,
+			hr_common.MONGODB_STR_PIPELINE: []bson.M{
+				// Remove following fields from result-set
+				{hr_common.MONGODB_PROJECT: bson.M{
+					db_common.FLD_DEFAULT_ID:  0,
+					db_common.FLD_IS_DELETED:  0,
+					db_common.FLD_CREATED_AT:  0,
+					hr_common.FLD_BUSINESS_ID: 0,
+					db_common.FLD_UPDATED_AT:  0}},
+			},
+		},
+	}
+	// Add it to Aggregate Stage
+	stages = append(stages, lookupStage)
+	// Lookup Stage for User ==========================================
+	lookupStage = bson.M{
 		hr_common.MONGODB_LOOKUP: bson.M{
 			hr_common.MONGODB_STR_FROM:         hr_common.DbHrShiftProfiles,
 			hr_common.MONGODB_STR_LOCALFIELD:   hr_common.FLD_CLIENT_INFO + "." + hr_common.FLD_SHIFT_PROFILE_ID,
@@ -527,27 +547,6 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 			hr_common.MONGODB_STR_LOCALFIELD:   hr_common.FLD_CLOCK_IN + "." + hr_common.FLD_PROJECT_ID,
 			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_PROJECT_ID,
 			hr_common.MONGODB_STR_AS:           hr_common.FLD_PROJECT_INFO,
-			hr_common.MONGODB_STR_PIPELINE: []bson.M{
-				// Remove following fields from result-set
-				{hr_common.MONGODB_PROJECT: bson.M{
-					db_common.FLD_DEFAULT_ID:  0,
-					db_common.FLD_IS_DELETED:  0,
-					db_common.FLD_CREATED_AT:  0,
-					hr_common.FLD_BUSINESS_ID: 0,
-					db_common.FLD_UPDATED_AT:  0}},
-			},
-		},
-	}
-	// Add it to Aggregate Stage
-	stages = append(stages, lookupStage)
-
-	// Lookup Stage for Clients ========================================
-	lookupStage = bson.M{
-		hr_common.MONGODB_LOOKUP: bson.M{
-			hr_common.MONGODB_STR_FROM:         hr_common.DbHrClients,
-			hr_common.MONGODB_STR_LOCALFIELD:   hr_common.FLD_CLOCK_IN + "." + hr_common.FLD_CLIENT_ID,
-			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_CLIENT_ID,
-			hr_common.MONGODB_STR_AS:           hr_common.FLD_CLIENT_INFO,
 			hr_common.MONGODB_STR_PIPELINE: []bson.M{
 				// Remove following fields from result-set
 				{hr_common.MONGODB_PROJECT: bson.M{
