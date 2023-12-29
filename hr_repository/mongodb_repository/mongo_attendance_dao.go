@@ -480,7 +480,7 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 	// Lookup Stage for User ==========================================
 	lookupStage := bson.M{
 		hr_common.MONGODB_LOOKUP: bson.M{
-			hr_common.MONGODB_STR_FROM:         hr_common.DbHrShiftProfiles,
+			hr_common.MONGODB_STR_FROM:         hr_common.DbHrShifts,
 			hr_common.MONGODB_STR_LOCALFIELD:   hr_common.FLD_CLIENT_INFO + "." + hr_common.FLD_SHIFT_PROFILE_ID,
 			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_SHIFT_PROFILE_ID,
 			hr_common.MONGODB_STR_AS:           hr_common.FLD_SHIFT_INFO,
