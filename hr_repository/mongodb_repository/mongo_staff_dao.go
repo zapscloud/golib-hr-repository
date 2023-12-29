@@ -128,7 +128,14 @@ func (p *StaffMongoDBDao) List(filter string, sort string, skip int64, limit int
 		stages = append(stages, limitStage)
 	}
 
-	cursor, err := collection.Aggregate(ctx, stages)
+	// Ignore case in sorting
+	opts := options.Aggregate().SetCollation(&options.Collation{
+		Locale:    db_common.LOCALE,
+		Strength:  1,
+		CaseLevel: false,
+	})
+
+	cursor, err := collection.Aggregate(ctx, stages, opts)
 	if err != nil {
 		return nil, err
 	}
