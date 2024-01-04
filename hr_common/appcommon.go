@@ -27,6 +27,7 @@ const (
 	DbHrClients       = DbPrefix + "hr_clients"
 	DbHrProjects      = DbPrefix + "hr_projects"
 	DbHrOvertimes     = DbPrefix + "hr_overtimes"
+	DbHrVisaTypes     = DbPrefix + "hr_visa_types"
 )
 
 const (
@@ -162,6 +163,11 @@ const (
 	FLD_OVERTIME_ID          = "overtime_id"
 	FLD_OVERTIME_NAME        = "overtime_name"
 	FLD_OVERTIME_DESCRIPTION = "overtime_description"
+
+	//Visa Type Table
+	FLD_VISA_TYPE_ID          = "visa_type_id"
+	FLD_VISA_TYPE_NAME        = "visa_type_name"
+	FLD_VISA_TYPE_DESCRIPTION = "visa_type_description"
 )
 
 func init() {
