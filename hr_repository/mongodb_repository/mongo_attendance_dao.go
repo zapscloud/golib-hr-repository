@@ -480,6 +480,8 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 			},
 		},
 	}
+	// Add it to Aggregate Stage
+	stages = append(stages, lookupStage)
 	// Lookup Stage for staff info ========================================
 	lookupStage = bson.M{
 		hr_common.MONGODB_LOOKUP: bson.M{
