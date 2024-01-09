@@ -34,6 +34,7 @@ func (p *DashboardMongoDBDao) InitializeDao(client utils.Map, businessId string,
 func (p *DashboardMongoDBDao) GetDashboardData() (utils.Map, error) {
 
 	leaveData, _ := p.getLeaveDetails()
+	roledata, _ := p.getRolecount()
 	leaveDataAllStaff, _ := p.getLeaveDetailsAllStaff()
 	staffCount, _ := p.getStaffDetails()
 	departmentCount, _ := p.getdeparmentDetails()
@@ -47,10 +48,12 @@ func (p *DashboardMongoDBDao) GetDashboardData() (utils.Map, error) {
 	rolesCount, _ := p.getroleDetails()
 	shift_profileCount, _ := p.getshift_profileDetails()
 	overtimeCount, _ := p.getovertimeDetails()
+	visaCount, _ := p.getvisaDetails()
 
 	// 2. Count different leave types
 	//leaveCounts := make(map[string]int64)
 	retData := utils.Map{
+		"Role_details":            roledata,
 		"All_Staff_leave_details": leaveDataAllStaff,
 		"leave_details":           leaveData,
 		"staff_details": utils.Map{
@@ -88,6 +91,9 @@ func (p *DashboardMongoDBDao) GetDashboardData() (utils.Map, error) {
 		},
 		"overtime_details": utils.Map{
 			"total_overtime": overtimeCount,
+		},
+		"visa_details": utils.Map{
+			"total_visa_type": visaCount,
 		},
 	}
 
@@ -438,4 +444,97 @@ func (p *DashboardMongoDBDao) getovertimeDetails() (int64, error) {
 	}
 
 	return totalStaffCnt, nil
+}
+
+func (p *DashboardMongoDBDao) getvisaDetails() (int64, error) {
+	// Create a filter document
+	filterdoc := bson.D{
+		{Key: hr_common.FLD_BUSINESS_ID, Value: p.businessId},
+		{Key: db_common.FLD_IS_DELETED, Value: false},
+	}
+
+	// Get the MongoDB collection
+	collection, ctx, err := mongo_utils.GetMongoDbCollection(p.client, hr_common.DbHrVisaTypes)
+	if err != nil {
+		return 0, err
+	}
+
+	// 1. Find Total number of Tokens
+	totalvisa, err := collection.CountDocuments(ctx, filterdoc)
+	if err != nil {
+		return 0, err
+	}
+
+	return totalvisa, nil
+}
+
+func (p *DashboardMongoDBDao) getRolecount() (utils.Map, error) {
+	// Get the MongoDB collection
+	collection, ctx, err := mongo_utils.GetMongoDbCollection(p.client, business_common.DbBusinessUsers)
+	if err != nil {
+		return nil, err
+	}
+	log.Println("==================================", collection)
+
+	// Define aggregation stages
+	stages := []bson.M{
+		{
+			hr_common.MONGODB_MATCH: bson.M{
+				hr_common.FLD_BUSINESS_ID: p.businessId,
+				db_common.FLD_IS_DELETED:  false,
+			},
+		},
+		{
+			// Unwind the array before grouping
+			"$unwind": "$" + business_common.FLD_USER_ROLES,
+		},
+		{
+			hr_common.MONGODB_GROUP: bson.M{
+				"_id":        "$" + business_common.FLD_USER_ROLES + "." + business_common.FLD_ROLE_ID,
+				"Role_count": bson.M{hr_common.MONGODB_SUM: 1},
+			},
+		},
+		{
+			// Group by document ID (or another unique identifier)
+			hr_common.MONGODB_GROUP: bson.M{
+				"_id":    "$_id", // Use a unique identifier, you may need to adjust this based on your document structure
+				"roles":  bson.M{"$addToSet": "$_id"},
+				"counts": bson.M{"$addToSet": "$Role_count"},
+			},
+		},
+		{
+			// Project the final result
+			hr_common.MONGODB_PROJECT: bson.M{
+				"_id":    0,
+				"roles":  1,
+				"counts": 1,
+			},
+		},
+	}
+
+	// Execute aggregation pipeline
+	cursor, err := collection.Aggregate(ctx, stages)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+	log.Println("==================================", cursor)
+
+	// Process aggregation results
+	retData := utils.Map{}
+	for cursor.Next(ctx) {
+		var entry struct {
+			Roles  []string `bson:"roles"`
+			Counts []int    `bson:"counts"`
+		}
+		if err := cursor.Decode(&entry); err != nil {
+			log.Println("============", err)
+			return nil, err
+		}
+		for i, role := range entry.Roles {
+			retData[role] = entry.Counts[i]
+		}
+	}
+	log.Println("==================================", retData)
+	return retData, nil
 }
