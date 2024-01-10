@@ -53,45 +53,60 @@ func (p *DashboardMongoDBDao) GetDashboardData() (utils.Map, error) {
 	// 2. Count different leave types
 	//leaveCounts := make(map[string]int64)
 	retData := utils.Map{
-		"Role_details":            roledata,
-		"All_Staff_leave_details": leaveDataAllStaff,
+
+		"all_role_details":        roledata,
+
+		"all_Staff_leave_details": leaveDataAllStaff,
+
 		"leave_details":           leaveData,
+
 		"staff_details": utils.Map{
 			"total_staff": staffCount,
 		},
+
 		"department_details": utils.Map{
 			"total_department": departmentCount,
 		},
+
 		"holiday_details": utils.Map{
 			"total_holiday": holidayCount,
 		},
+
 		"designation_details": utils.Map{
 			"total_designation": designationCount,
 		},
+
 		"position_details": utils.Map{
 			"total_position": positionCount,
 		},
+
 		"shift_details": utils.Map{
 			"total_shift": shiftCount,
 		},
+
 		"staffType_details": utils.Map{
 			"total_staffType": staffTypeCount,
 		},
 		"leaveType_details": utils.Map{
 			"total_leaveType": leaveTypeCount,
 		},
+
 		"role_details": utils.Map{
 			"total_role": rolesCount,
 		},
+
 		"worklocation_details": utils.Map{
 			"total_worklocation": work_locationCount,
 		},
+
 		"shift_profile_details": utils.Map{
 			"total_shift_profile": shift_profileCount,
 		},
+
 		"overtime_details": utils.Map{
 			"total_overtime": overtimeCount,
 		},
+		
 		"visa_details": utils.Map{
 			"total_visa_type": visaCount,
 		},
