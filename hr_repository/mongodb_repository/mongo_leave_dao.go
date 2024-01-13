@@ -190,7 +190,7 @@ func (p *LeaveMongoDBDao) Get(account_id string) (utils.Map, error) {
 		{Key: hr_common.FLD_LEAVE_ID, Value: account_id},
 		{Key: hr_common.FLD_BUSINESS_ID, Value: p.businessId},
 		{Key: db_common.FLD_IS_DELETED, Value: false}}
-		
+
 	// Append StaffId in filter if available
 	if len(p.staffId) > 0 {
 		filter = append(filter, bson.E{Key: hr_common.FLD_STAFF_ID, Value: p.staffId})
@@ -467,7 +467,7 @@ func (p *LeaveMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 			hr_common.MONGODB_STR_FROM:         hr_common.DbHrLeaveTypes,
 			hr_common.MONGODB_STR_LOCALFIELD:   hr_common.FLD_LEAVETYPE_ID,
 			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_LEAVETYPE_ID,
-			hr_common.MONGODB_STR_AS:           hr_common.FLD_LEAVE_TYPE_INFO,
+			hr_common.MONGODB_STR_AS:           hr_common.FLD_LEAVE_INFO,
 			hr_common.MONGODB_STR_PIPELINE: []bson.M{
 				// Remove following fields from result-set
 				{hr_common.MONGODB_PROJECT: bson.M{
