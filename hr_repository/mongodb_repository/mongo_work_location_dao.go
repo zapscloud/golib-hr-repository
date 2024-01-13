@@ -11,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// WorkLocationMongoDBDao - Holiday DAO Repository
+// WorkLocationMongoDBDao - WorkLocation DAO Repository
 type WorkLocationMongoDBDao struct {
 	client     utils.Map
 	businessID string
@@ -22,7 +22,7 @@ func init() {
 }
 
 func (p *WorkLocationMongoDBDao) InitializeDao(client utils.Map, businessId string) {
-	log.Println("Initialize Holiday Mongodb DAO")
+	log.Println("Initialize WorkLocation Mongodb DAO")
 	p.client = client
 	p.businessID = businessId
 }
