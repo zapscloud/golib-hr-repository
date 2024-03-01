@@ -68,6 +68,9 @@ const (
 	FLD_OVERTIME_INFO        = "overtime_info"
 	FLD_LEAVETYPE_INFO       = "leavetype_info"
 	FLD_REPORTING_STAFF_INFO = "reporting_staff_info"
+	FLD_DEPARTMENT_INFO      = "department_info"
+	FLD_DESIGNATION_INFO     = "designation_info"
+	FLD_POSITION_INFO        = "position_info"
 
 	FLD_FILTERED_COUNT = "filtered_count"
 	FLD_GROUP_DOCS     = "docs"
