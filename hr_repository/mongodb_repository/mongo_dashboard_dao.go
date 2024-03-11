@@ -49,16 +49,17 @@ func (p *DashboardMongoDBDao) GetDashboardData() (utils.Map, error) {
 	shift_profileCount, _ := p.getshift_profileDetails()
 	overtimeCount, _ := p.getovertimeDetails()
 	visaCount, _ := p.getvisaDetails()
+	staffCategoryCount, _ := p.getStaffcategoryDetails()
 
 	// 2. Count different leave types
 	//leaveCounts := make(map[string]int64)
 	retData := utils.Map{
 
-		"all_role_details":        roledata,
+		"all_role_details": roledata,
 
 		"all_Staff_leave_details": leaveDataAllStaff,
 
-		"leave_details":           leaveData,
+		"leave_details": leaveData,
 
 		"staff_details": utils.Map{
 			"total_staff": staffCount,
@@ -66,6 +67,9 @@ func (p *DashboardMongoDBDao) GetDashboardData() (utils.Map, error) {
 
 		"department_details": utils.Map{
 			"total_department": departmentCount,
+		},
+		"staff_Category_details": utils.Map{
+			"total_staff_Category": staffCategoryCount,
 		},
 
 		"holiday_details": utils.Map{
@@ -106,7 +110,7 @@ func (p *DashboardMongoDBDao) GetDashboardData() (utils.Map, error) {
 		"overtime_details": utils.Map{
 			"total_overtime": overtimeCount,
 		},
-		
+
 		"visa_details": utils.Map{
 			"total_visa_type": visaCount,
 		},
@@ -364,6 +368,27 @@ func (p *DashboardMongoDBDao) getLeaveTypeDetails() (int64, error) {
 
 	// Get the MongoDB collection
 	collection, ctx, err := mongo_utils.GetMongoDbCollection(p.client, hr_common.DbHrLeaveTypes)
+	if err != nil {
+		return 0, err
+	}
+
+	// 1. Find Total number of Tokens
+	totalStaffCnt, err := collection.CountDocuments(ctx, filterdoc)
+	if err != nil {
+		return 0, err
+	}
+
+	return totalStaffCnt, nil
+}
+func (p *DashboardMongoDBDao) getStaffcategoryDetails() (int64, error) {
+	// Create a filter document
+	filterdoc := bson.D{
+		{Key: hr_common.FLD_BUSINESS_ID, Value: p.businessId},
+		{Key: db_common.FLD_IS_DELETED, Value: false},
+	}
+
+	// Get the MongoDB collection
+	collection, ctx, err := mongo_utils.GetMongoDbCollection(p.client, hr_common.DbHrStaff_categorys)
 	if err != nil {
 		return 0, err
 	}
