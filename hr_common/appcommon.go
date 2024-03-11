@@ -11,23 +11,24 @@ import (
 const (
 	DbPrefix = db_common.DB_COLLECTION_PREFIX
 
-	DbHrStaffs        = DbPrefix + "hr_staffs"
-	DbHrStaffTypes    = DbPrefix + "hr_staff_types"
-	DbHrDepartments   = DbPrefix + "hr_departments"
-	DbHrDesignations  = DbPrefix + "hr_designations"
-	DbHrPositions     = DbPrefix + "hr_positions"
-	DbHrPositionTypes = DbPrefix + "hr_position_types"
-	DbHrAttendances   = DbPrefix + "hr_attendances"
-	DbHrLeaves        = DbPrefix + "hr_leaves"
-	DbHrLeaveTypes    = DbPrefix + "hr_leave_types"
-	DbHrHolidays      = DbPrefix + "hr_holidays"
-	DbHrShifts        = DbPrefix + "hr_shifts"
-	DbHrShiftProfiles = DbPrefix + "hr_shift_profiles"
-	DbHrWorkLocations = DbPrefix + "hr_work_locations"
-	DbHrClients       = DbPrefix + "hr_clients"
-	DbHrProjects      = DbPrefix + "hr_projects"
-	DbHrOvertimes     = DbPrefix + "hr_overtimes"
-	DbHrVisaTypes     = DbPrefix + "hr_visa_types"
+	DbHrStaffs          = DbPrefix + "hr_staffs"
+	DbHrStaffTypes      = DbPrefix + "hr_staff_types"
+	DbHrDepartments     = DbPrefix + "hr_departments"
+	DbHrDesignations    = DbPrefix + "hr_designations"
+	DbHrPositions       = DbPrefix + "hr_positions"
+	DbHrPositionTypes   = DbPrefix + "hr_position_types"
+	DbHrAttendances     = DbPrefix + "hr_attendances"
+	DbHrLeaves          = DbPrefix + "hr_leaves"
+	DbHrLeaveTypes      = DbPrefix + "hr_leave_types"
+	DbHrHolidays        = DbPrefix + "hr_holidays"
+	DbHrShifts          = DbPrefix + "hr_shifts"
+	DbHrShiftProfiles   = DbPrefix + "hr_shift_profiles"
+	DbHrWorkLocations   = DbPrefix + "hr_work_locations"
+	DbHrClients         = DbPrefix + "hr_clients"
+	DbHrProjects        = DbPrefix + "hr_projects"
+	DbHrOvertimes       = DbPrefix + "hr_overtimes"
+	DbHrVisaTypes       = DbPrefix + "hr_visa_types"
+	DbHrStaff_categorys = DbPrefix + "hr_staff_categorys"
 )
 
 const (
@@ -171,6 +172,13 @@ const (
 	FLD_VISA_TYPE_ID          = "visa_type_id"
 	FLD_VISA_TYPE_NAME        = "visa_type_name"
 	FLD_VISA_TYPE_DESCRIPTION = "visa_type_description"
+
+
+	// Staff table fields
+	FLD_STAFF_CATEGORY_ID            = "staff_category_id"
+	FLD_STAFF_CATEGORY_NAME            = "staff_category_name"
+	FLD_STAFF_CATEGORY_DESC            = "staff_category_desc"
+
 )
 
 func init() {
