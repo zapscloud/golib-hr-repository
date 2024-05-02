@@ -72,6 +72,7 @@ const (
 	FLD_DEPARTMENT_INFO      = "department_info"
 	FLD_DESIGNATION_INFO     = "designation_info"
 	FLD_POSITION_INFO        = "position_info"
+	
 
 	FLD_FILTERED_COUNT = "filtered_count"
 	FLD_GROUP_DOCS     = "docs"
@@ -173,12 +174,10 @@ const (
 	FLD_VISA_TYPE_NAME        = "visa_type_name"
 	FLD_VISA_TYPE_DESCRIPTION = "visa_type_description"
 
-
 	// Staff table fields
-	FLD_STAFF_CATEGORY_ID            = "staff_category_id"
-	FLD_STAFF_CATEGORY_NAME            = "staff_category_name"
-	FLD_STAFF_CATEGORY_DESC            = "staff_category_desc"
-
+	FLD_STAFF_CATEGORY_ID   = "staff_category_id"
+	FLD_STAFF_CATEGORY_NAME = "staff_category_name"
+	FLD_STAFF_CATEGORY_DESC = "staff_category_desc"
 )
 
 func init() {

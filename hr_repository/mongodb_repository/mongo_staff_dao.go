@@ -427,25 +427,25 @@ func (p *StaffMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 	// //Add it to Aggregate Stage
 	stages = append(stages, lookupStage)
 
-	// Lookup Stage for Designations ==========================================
-	lookupStage = bson.M{
-		hr_common.MONGODB_LOOKUP: bson.M{
-			hr_common.MONGODB_STR_FROM:         hr_common.DbHrDesignations,
-			hr_common.MONGODB_STR_LOCALFIELD:   hr_common.FLD_HR_STAFF_INFO + "." + hr_common.FLD_STAFF_DATA + "." + hr_common.FLD_DESIGNATION_ID,
-			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_DESIGNATION_ID,
-			hr_common.MONGODB_STR_AS:           hr_common.FLD_DESIGNATION_INFO,
-			hr_common.MONGODB_STR_PIPELINE: []bson.M{
-				// Remove following fields from result-set
-				{hr_common.MONGODB_PROJECT: bson.M{
-					db_common.FLD_DEFAULT_ID: 0,
-					db_common.FLD_IS_DELETED: 0,
-					db_common.FLD_CREATED_AT: 0,
-					db_common.FLD_UPDATED_AT: 0}},
-			},
-		},
-	}
-	// //Add it to Aggregate Stage
-	stages = append(stages, lookupStage)
+	// // Lookup Stage for Designations ==========================================
+	// lookupStage = bson.M{
+	// 	hr_common.MONGODB_LOOKUP: bson.M{
+	// 		hr_common.MONGODB_STR_FROM:         hr_common.DbHrDesignations,
+	// 		hr_common.MONGODB_STR_LOCALFIELD:   hr_common.FLD_STAFF_DATA + "." + hr_common.FLD_DESIGNATION_ID,
+	// 		hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_DESIGNATION_ID,
+	// 		hr_common.MONGODB_STR_AS:           hr_common.FLD_DESIGNATION_INFO,
+	// 		hr_common.MONGODB_STR_PIPELINE: []bson.M{
+	// 			// Remove following fields from result-set
+	// 			{hr_common.MONGODB_PROJECT: bson.M{
+	// 				db_common.FLD_DEFAULT_ID: 0,
+	// 				db_common.FLD_IS_DELETED: 0,
+	// 				db_common.FLD_CREATED_AT: 0,
+	// 				db_common.FLD_UPDATED_AT: 0}},
+	// 		},
+	// 	},
+	// }
+	// // //Add it to Aggregate Stage
+	// stages = append(stages, lookupStage)
 
 	// Lookup Stage for Token ========================================
 	lookupStage = bson.M{
@@ -463,7 +463,7 @@ func (p *StaffMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 					db_common.FLD_CREATED_AT:        0,
 					db_common.FLD_UPDATED_AT:        0,
 					db_common.FLD_IS_AUTO_GENERATED: 0,
-					}},
+				}},
 			},
 		},
 	}
