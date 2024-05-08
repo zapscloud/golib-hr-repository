@@ -220,7 +220,7 @@ func (p *DashboardMongoDBDao) getStaffDetails() (int64, error) {
 	}
 
 	// Get the MongoDB collection
-	collection, ctx, err := mongo_utils.GetMongoDbCollection(p.client, hr_common.DbHrStaffs)
+	collection, ctx, err := mongo_utils.GetMongoDbCollection(p.client, business_common.DbBusinessUsers)
 	if err != nil {
 		return 0, err
 	}
