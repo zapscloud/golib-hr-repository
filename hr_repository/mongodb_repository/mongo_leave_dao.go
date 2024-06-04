@@ -3,6 +3,7 @@ package mongodb_repository
 import (
 	"log"
 
+	"github.com/zapscloud/golib-business-repository/business_common"
 	"github.com/zapscloud/golib-dbutils/db_common"
 	"github.com/zapscloud/golib-dbutils/mongo_utils"
 	"github.com/zapscloud/golib-hr-repository/hr_common"
@@ -478,6 +479,26 @@ func (p *LeaveMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 					db_common.FLD_IS_DELETED:              0,
 					db_common.FLD_CREATED_AT:              0,
 					db_common.FLD_UPDATED_AT:              0}},
+			},
+		},
+	}
+	// Add it to Aggregate Stage
+	stages = append(stages, lookupStage)
+
+	// Lookup Stage for Token ========================================
+	lookupStage = bson.M{
+		hr_common.MONGODB_LOOKUP: bson.M{
+			hr_common.MONGODB_STR_FROM:         business_common.DbBusinessUsers,
+			hr_common.MONGODB_STR_LOCALFIELD:   hr_common.FLD_STAFF_ID,
+			hr_common.MONGODB_STR_FOREIGNFIELD: business_common.FLD_USER_ID,
+			hr_common.MONGODB_STR_AS:           hr_common.FLD_BUSINESS_USER_INFO,
+			hr_common.MONGODB_STR_PIPELINE: []bson.M{
+				// Remove following fields from result-set
+				{hr_common.MONGODB_PROJECT: bson.M{
+					db_common.FLD_DEFAULT_ID: 0,
+					db_common.FLD_IS_DELETED: 0,
+					db_common.FLD_CREATED_AT: 0,
+					db_common.FLD_UPDATED_AT: 0}},
 			},
 		},
 	}
