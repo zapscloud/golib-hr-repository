@@ -29,6 +29,7 @@ const (
 	DbHrOvertimes       = DbPrefix + "hr_overtimes"
 	DbHrVisaTypes       = DbPrefix + "hr_visa_types"
 	DbHrStaff_categorys = DbPrefix + "hr_staff_categorys"
+	DbHrFeedbacks       = DbPrefix + "hr_feedbacks"
 )
 
 const (
@@ -72,7 +73,6 @@ const (
 	FLD_DEPARTMENT_INFO      = "department_info"
 	FLD_DESIGNATION_INFO     = "designation_info"
 	FLD_POSITION_INFO        = "position_info"
-	
 
 	FLD_FILTERED_COUNT = "filtered_count"
 	FLD_GROUP_DOCS     = "docs"
@@ -178,6 +178,10 @@ const (
 	FLD_STAFF_CATEGORY_ID   = "staff_category_id"
 	FLD_STAFF_CATEGORY_NAME = "staff_category_name"
 	FLD_STAFF_CATEGORY_DESC = "staff_category_desc"
+
+	// Feedback table field
+	FLD_FEEDBACK_ID   = "feedback_id"
+	FLD_FEEDBACK_FROM = "feedback_from"
 )
 
 func init() {
