@@ -471,6 +471,10 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_CLIENT_ID,
 			hr_common.MONGODB_STR_AS:           hr_common.FLD_CLIENT_INFO,
 			hr_common.MONGODB_STR_PIPELINE: []bson.M{
+				// Match documents where FLD_IS_DELETED is false
+				{db_common.MONGODB_MATCH: bson.M{
+					db_common.FLD_IS_DELETED: false,
+				}},
 				// Remove following fields from result-set
 				{hr_common.MONGODB_PROJECT: bson.M{
 					db_common.FLD_DEFAULT_ID:  0,
@@ -492,6 +496,10 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_STAFF_ID,
 			hr_common.MONGODB_STR_AS:           hr_common.FLD_STAFF_INFO,
 			hr_common.MONGODB_STR_PIPELINE: []bson.M{
+				// Match documents where FLD_IS_DELETED is false
+				{db_common.MONGODB_MATCH: bson.M{
+					db_common.FLD_IS_DELETED: false,
+				}},
 				// Remove following fields from result-set
 				{hr_common.MONGODB_PROJECT: bson.M{
 					db_common.FLD_DEFAULT_ID:  0,
@@ -513,6 +521,10 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 			hr_common.MONGODB_STR_FOREIGNFIELD: business_common.FLD_USER_ID,
 			hr_common.MONGODB_STR_AS:           hr_common.FLD_BUSINESS_USER_INFO,
 			hr_common.MONGODB_STR_PIPELINE: []bson.M{
+				// Match documents where FLD_IS_DELETED is false
+				{db_common.MONGODB_MATCH: bson.M{
+					db_common.FLD_IS_DELETED: false,
+				}},
 				// Remove following fields from result-set
 				{hr_common.MONGODB_PROJECT: bson.M{
 					db_common.FLD_DEFAULT_ID: 0,
@@ -533,6 +545,10 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_SHIFT_PROFILE_ID,
 			hr_common.MONGODB_STR_AS:           hr_common.FLD_SHIFT_INFO,
 			hr_common.MONGODB_STR_PIPELINE: []bson.M{
+				// Match documents where FLD_IS_DELETED is false
+				{db_common.MONGODB_MATCH: bson.M{
+					db_common.FLD_IS_DELETED: false,
+				}},
 				// Remove following fields from result-set
 				{hr_common.MONGODB_PROJECT: bson.M{
 					db_common.FLD_DEFAULT_ID:              0,
@@ -555,6 +571,10 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_WORKLOCATION_ID,
 			hr_common.MONGODB_STR_AS:           hr_common.FLD_WORKLOCATION_INFO,
 			hr_common.MONGODB_STR_PIPELINE: []bson.M{
+				// Match documents where FLD_IS_DELETED is false
+				{db_common.MONGODB_MATCH: bson.M{
+					db_common.FLD_IS_DELETED: false,
+				}},
 				// Remove following fields from result-set
 				{hr_common.MONGODB_PROJECT: bson.M{
 					db_common.FLD_DEFAULT_ID:  0,
@@ -576,6 +596,10 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_PROJECT_ID,
 			hr_common.MONGODB_STR_AS:           hr_common.FLD_PROJECT_INFO,
 			hr_common.MONGODB_STR_PIPELINE: []bson.M{
+				// Match documents where FLD_IS_DELETED is false
+				{db_common.MONGODB_MATCH: bson.M{
+					db_common.FLD_IS_DELETED: false,
+				}},
 				// Remove following fields from result-set
 				{hr_common.MONGODB_PROJECT: bson.M{
 					db_common.FLD_DEFAULT_ID:  0,
@@ -597,6 +621,10 @@ func (p *AttendanceMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 			hr_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_OVERTIME_ID,
 			hr_common.MONGODB_STR_AS:           hr_common.FLD_OVERTIME_INFO,
 			hr_common.MONGODB_STR_PIPELINE: []bson.M{
+				// Match documents where FLD_IS_DELETED is false
+				{db_common.MONGODB_MATCH: bson.M{
+					db_common.FLD_IS_DELETED: false,
+				}},
 				// Remove following fields from result-set
 				{hr_common.MONGODB_PROJECT: bson.M{
 					db_common.FLD_DEFAULT_ID:  0,
