@@ -7,6 +7,7 @@ import (
 	"github.com/zapscloud/golib-dbutils/db_common"
 	"github.com/zapscloud/golib-dbutils/mongo_utils"
 	"github.com/zapscloud/golib-hr-repository/hr_common"
+	"github.com/zapscloud/golib-platform-repository/platform_common"
 	"github.com/zapscloud/golib-utils/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -468,6 +469,30 @@ func (p *StaffMongoDBDao) appendListLookups(stages []bson.M) []bson.M {
 		},
 	}
 	// Add it to Aggregate Stage
+	stages = append(stages, lookupStage)
+
+	// Lookup Stage for HR staff ==========================================
+	lookupStage = bson.M{
+		db_common.MONGODB_LOOKUP: bson.M{
+			db_common.MONGODB_STR_FROM:         hr_common.DbHrStaffs,
+			db_common.MONGODB_STR_LOCALFIELD:   platform_common.FLD_APP_USER_ID,
+			db_common.MONGODB_STR_FOREIGNFIELD: hr_common.FLD_STAFF_ID,
+			db_common.MONGODB_STR_AS:           hr_common.FLD_HR_STAFF_INFO,
+			db_common.MONGODB_STR_PIPELINE: []bson.M{
+				// Match BusinessId
+				{db_common.MONGODB_MATCH: bson.M{
+					business_common.FLD_BUSINESS_ID: p.businessId,
+				}},
+				// Remove following fields from result-set
+				{db_common.MONGODB_PROJECT: bson.M{
+					db_common.FLD_DEFAULT_ID: 0,
+					db_common.FLD_IS_DELETED: 0,
+					db_common.FLD_CREATED_AT: 0,
+					db_common.FLD_UPDATED_AT: 0}},
+			},
+		},
+	}
+	// //Add it to Aggregate Stage
 	stages = append(stages, lookupStage)
 
 	return stages

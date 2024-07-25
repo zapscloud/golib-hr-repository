@@ -73,6 +73,7 @@ const (
 	FLD_DEPARTMENT_INFO      = "department_info"
 	FLD_DESIGNATION_INFO     = "designation_info"
 	FLD_POSITION_INFO        = "position_info"
+	FLD_HR_STAFF_INFO    = "hr_staff_info"
 
 	FLD_FILTERED_COUNT = "filtered_count"
 	FLD_GROUP_DOCS     = "docs"
