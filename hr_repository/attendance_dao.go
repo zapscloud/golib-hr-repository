@@ -14,6 +14,9 @@ type AttendanceDao interface {
 	// List
 	List(filter string, sort string, skip int64, limit int64) (utils.Map, error)
 
+	// ListNew
+	ListNew(filter string, sort string, skip int64, limit int64) (utils.Map, error)
+
 	// Get - Get Attendance Details
 	Get(attendanceId string) (utils.Map, error)
 
